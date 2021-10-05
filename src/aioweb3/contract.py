@@ -1,44 +1,26 @@
-from web3 import Web3
-from typing import (TYPE_CHECKING, Tuple, Callable, Optional, Any, cast)
-from web3.contract import ContractFunction, ACCEPTABLE_EMPTY_STRINGS
-from eth_typing import (ChecksumAddress, BlockNumber)
-from web3._utils.empty import (empty,)
-from web3._utils.blocks import (is_hex_encoded_block_hash,)
 import itertools
-from web3._utils.normalizers import (
-    BASE_RETURN_NORMALIZERS,
-    normalize_abi,
-    normalize_address,
-    normalize_bytecode,
-)
-from web3.types import (
-    ABI,
-    ABIEvent,
-    ABIFunction,
-    BlockIdentifier,
-    CallOverrideParams,
-    EventData,
-    FunctionIdentifier,
-    LogReceipt,
-    TxParams,
-    TxReceipt,
-)
+from typing import TYPE_CHECKING, Any, Callable, Optional, Tuple, cast
+
 from eth_abi.exceptions import DecodingError
-from web3._utils.abi import (
-    get_abi_input_names,
-    get_abi_input_types,
-    get_abi_output_types,
-    get_constructor_abi,
-    map_abi_data
-)
-from web3._utils.contracts import (
-    prepare_transaction,
-    find_matching_event_abi,
-    find_matching_fn_abi
-)
-from web3.exceptions import (BlockNumberOutofRange, BadFunctionCallOutput)
-from .exceptions import (SyncCallDetectedError)
+from eth_typing import BlockNumber, ChecksumAddress
+from web3 import Web3
+from web3._utils.abi import (get_abi_input_names, get_abi_input_types,
+                             get_abi_output_types, get_constructor_abi,
+                             map_abi_data)
+from web3._utils.blocks import is_hex_encoded_block_hash
+from web3._utils.contracts import (find_matching_event_abi,
+                                   find_matching_fn_abi, prepare_transaction)
+from web3._utils.empty import empty
+from web3._utils.normalizers import (BASE_RETURN_NORMALIZERS, normalize_abi,
+                                     normalize_address, normalize_bytecode)
+from web3.contract import ACCEPTABLE_EMPTY_STRINGS, ContractFunction
+from web3.exceptions import BadFunctionCallOutput, BlockNumberOutofRange
+from web3.types import (ABI, ABIEvent, ABIFunction, BlockIdentifier,
+                        CallOverrideParams, EventData, FunctionIdentifier,
+                        LogReceipt, TxParams, TxReceipt)
+
 from .async_web3 import AsyncWeb3
+from .exceptions import SyncCallDetectedError
 
 
 async def async_parse_block_identifier(
