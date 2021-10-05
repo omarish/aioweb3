@@ -2,7 +2,13 @@
 
 `asyncio` support for web3.py.
 
-**Caution: 🚧 This is not yet production ready 🚧.** I use it extensively in read-heavy environments for now.
+```python
+web3 = AsyncWeb3()
+contract = web3.eth.contract(address=addr, abi=IERC721_ENUMERABLE['abi'])
+total_supply = await contract.functions.totalSupply().call()
+```
+
+**Caution: 🚧 This is not yet production ready 🚧.** 
 
 ## Install
 
