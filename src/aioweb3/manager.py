@@ -1,13 +1,27 @@
-from typing import (TYPE_CHECKING, Any, Callable, Dict, List,  # noqa: F401
-                    NoReturn, Optional, Sequence, Tuple, Union)
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Callable,
+    Dict,
+    List,  # noqa: F401
+    NoReturn,
+    Optional,
+    Sequence,
+    Tuple,
+    Union,
+)
 from uuid import UUID
 
 from web3._utils.threads import ThreadWithReturn, spawn  # noqa: F401
 from web3.datastructures import NamedElementOnion
 from web3.manager import RequestManager
 from web3.providers.async_base import AsyncBaseProvider
-from web3.types import (Middleware, MiddlewareOnion, RPCEndpoint,  # noqa: F401
-                        RPCResponse)
+from web3.types import (
+    Middleware,
+    MiddlewareOnion,
+    RPCEndpoint,  # noqa: F401
+    RPCResponse,
+)
 
 from aioweb3.provider import AsyncHTTPProvider
 
@@ -20,7 +34,7 @@ from .middleware import (
     name_to_address_middleware,
     pythonic_middleware,
     request_parameter_normalizer,
-    validation_middleware
+    validation_middleware,
 )
 
 
@@ -29,8 +43,7 @@ class AsyncRequestManager(RequestManager):
         self,
         web3: 'AsyncWeb3',
         provider: Optional[AsyncBaseProvider] = None,
-        middlewares: Optional[Sequence[Tuple[Middleware,
-                                             str]]] = None
+        middlewares: Optional[Sequence[Tuple[Middleware, str]]] = None,
     ) -> None:
         self.web3 = web3
         self.pending_requests: Dict[UUID, ThreadWithReturn[RPCResponse]] = {}
@@ -48,15 +61,13 @@ class AsyncRequestManager(RequestManager):
 
     async def _coro_make_request(
         self,
-        method: Union[RPCEndpoint,
-                      Callable[...,
-                               RPCEndpoint]],
-        params: Any
+        method: Union[RPCEndpoint, Callable[..., RPCEndpoint]],
+        params: Any,
     ) -> RPCResponse:
         # type ignored b/c request_func is an awaitable in async model
         request_func = await self.provider.request_func(  # type: ignore
-            self.web3,
-            self.middleware_onion)
+            self.web3, self.middleware_onion
+        )
         self.logger.debug("Making request. Method: %s", method)
         return await request_func(method, params)
 

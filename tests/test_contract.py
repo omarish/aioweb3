@@ -1,8 +1,9 @@
 import asyncio
 import csv
 import json
-from pathlib import Path
 from asyncio import Queue
+from pathlib import Path
+
 from aioweb3 import AsyncContract, AsyncWeb3
 
 BASE = Path(__file__).parent
@@ -45,10 +46,12 @@ async def consumer(queue: Queue, index: int):
         queue.task_done()
 
 
-async def entrypoint(jobs: int = 5_000, workers: int = 50):
+async def entrypoint(jobs: int = 5_000, workers: int = 100):
     queue = Queue()
     producers = [asyncio.create_task(producer(queue))]
-    consumers = [asyncio.create_task(consumer(queue, i)) for i in range(workers)]
+    consumers = [
+        asyncio.create_task(consumer(queue, i)) for i in range(workers)
+    ]
     await asyncio.gather(*producers)
     await queue.join()
 

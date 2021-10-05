@@ -11,9 +11,15 @@ web3 = "5.24.0"
 [tool.poetry.dev-dependencies]
 isort = "^5.9.3"
 pytest = "^6.2.5"
-yapf = "^0.31.0"
 ipython = "^7.28.0"
 ipdb = "^0.13.9"
+black = "^21.9b0"
+flake8 = "^3.9.2"
+flake8-quotes = "^3.3.0"
+mypy = "^0.910"
+pycodestyle = "^2.7.0"
+pyflakes = "^2.3.1"
+twine = "^3.4.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

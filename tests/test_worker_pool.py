@@ -13,6 +13,7 @@ async def producer(queue: Queue, jobs: int):
 async def consumer(queue: Queue, index: int):
     def log(*args, **kwargs):
         print(f"Worker {index}: ", *args, **kwargs)
+
     log("Boot")
     web3 = AsyncWeb3()
     while 1:
@@ -25,13 +26,14 @@ async def consumer(queue: Queue, index: int):
 async def entrypoint(jobs: int = 5_000, workers: int = 50):
     queue = Queue()
     producers = [asyncio.create_task(producer(queue, jobs))]
-    consumers = [asyncio.create_task(consumer(queue, i)) for i in range(workers)]
+    consumers = [
+        asyncio.create_task(consumer(queue, i)) for i in range(workers)
+    ]
 
     await asyncio.gather(*producers)
     await queue.join()
 
 
 def test_workers():
-    """Simple test cast to run a bunch of workers in parallel.
-    """
+    """Simple test cast to run a bunch of workers in parallel."""
     asyncio.run(entrypoint())

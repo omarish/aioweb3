@@ -1,26 +1,30 @@
 # aioweb3
 
-## Testing
+`asyncio` support for web3.py.
+
+**Caution: 🚧 This is not yet production ready 🚧.** I use it extensively in read-heavy environments for now.
+
+## Install
+
+```sh
+pip install aioweb3
+```
+
+## Development
+
+### Testing
+
+There's the beginning of a test suite in the `tests` directory.
+
+To run the tests:
 
 ```sh
 $ pytest -s
 ```
 
-## Development
+It might help to set these environment variables:
 
 ```sh
 export PYTHONASYNCIODEBUG=1
 export PYTHONBREAKPOINT=ipdb.set_trace
-```
-
-## Logging Setup
-
-```python
-import logging
-
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s %(levelname)-8s %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S',
-)
 ```
