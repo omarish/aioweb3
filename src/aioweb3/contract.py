@@ -995,13 +995,11 @@ class AsyncContractCaller(ContractCaller):
                     function_identifier=func['name']
                 )
 
-                loop = asyncio.get_event_loop()
-
                 # TODO: might need to move this out of the constructor
-                block_id = loop.run_until_complete(
-                    async_parse_block_identifier(self.web3,
-                                                 block_identifier)
-                )
+                async def parse():
+                    return await async_parse_block_identifier(self.web3, block_identifier)
+
+                block_id = asyncio.gather(parse())
 
                 caller_method = partial(
                     self.call_function,
@@ -1124,7 +1122,7 @@ async def async_parse_block_identifier(
     elif block_identifier in ['latest', 'earliest', 'pending']:
         return block_identifier
     elif isinstance(block_identifier, bytes) or is_hex_encoded_block_hash(block_identifier):
-        return web3.eth.get_block(block_identifier)['number']
+        return await web3.eth.get_block(block_identifier)['number']
     else:
         raise BlockNumberOutofRange
 

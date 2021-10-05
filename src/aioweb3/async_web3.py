@@ -4,11 +4,9 @@ from typing import Any, Dict, Optional, Sequence, cast
 from ens import ENS
 from eth_abi.codec import ABICodec
 from web3 import Web3
-from web3._utils.abi import (build_default_registry, build_strict_registry,
-                             map_abi_data)
+from web3._utils.abi import (build_default_registry, build_strict_registry, map_abi_data)
 from web3._utils.empty import empty
 from web3._utils.module import attach_modules
-from web3.eth import AsyncEth
 from web3.main import get_default_modules as get_default_sync_modules
 from web3.net import AsyncNet
 from web3.providers import BaseProvider
@@ -18,6 +16,7 @@ from aioweb3.exceptions import SyncCallDetectedError
 from aioweb3.manager import AsyncRequestManager
 
 from .provider import AsyncHTTPProvider
+from .async_eth import AsyncEth
 
 MODULES = {'eth': (AsyncEth,), 'net': (AsyncNet,)}
 
