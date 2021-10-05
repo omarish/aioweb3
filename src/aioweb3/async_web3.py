@@ -53,12 +53,8 @@ class AsyncWeb3(Web3):
             assert provider.__class__.__name__ == 'AsyncHTTPProvider'
         else:
             provider = AsyncHTTPProvider()
-
-        if middlewares:
-            breakpoint()
-        else:
+        if not middlewares:
             middlewares = []
-
         self.manager = self.RequestManager(self, provider, middlewares)
         self.codec = ABICodec(build_default_registry())
         if modules:
@@ -69,16 +65,3 @@ class AsyncWeb3(Web3):
 
     def _make_request(self, *args, **kwargs):
         raise SyncCallDetectedError()
-
-
-class ContractFunction:
-    async def call(self):
-        pass
-
-
-class Contract:
-    def __new__():
-        pass
-
-    def call(self):
-        pass

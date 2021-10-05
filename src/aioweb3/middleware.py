@@ -43,26 +43,6 @@ from web3.types import Middleware, RPCEndpoint, RPCResponse
 if TYPE_CHECKING:
     from web3 import Web3  # noqa: F401
 
-# def combine_middlewares(
-#     middlewares: Sequence[Middleware],
-#     web3: 'Web3',
-#     provider_request_fn: Callable[[RPCEndpoint,
-#                                    Any],
-#                                   Any]
-# ) -> Callable[...,
-#               RPCResponse]:
-#     """
-#     Returns a callable function which will call the provider.provider_request
-#     function wrapped with all of the middlewares.
-#     """
-#     return functools.reduce(
-#         lambda request_fn,
-#         middleware: middleware(request_fn,
-#                                web3),
-#         reversed(middlewares),
-#         provider_request_fn,
-#     )
-
 
 async def async_combine_middlewares(
     middlewares: Sequence[Middleware],
